@@ -3,22 +3,36 @@
 	
 	<head>
 		
+		<title>BOS Frequency calculator</title>
 		<script src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'></script>
 		<script>
 			jQuery(document).ready(function() {
 				
 				jQuery('#calculate').click(function() {
 					
-					var channel = jQuery('#channel').val();
+					var val = jQuery('#channel').val();
+					var type = 'channel>frequency';
+					var ob, ub;
 					
-					if (channel != 'undefined' && channel) {
+					if (val.length != 3) {
+						type = 'frequency>channel';
+					}
 					
-						var ob = ((channel - 347) * 0.02) + 84.015;
-						var ub = ((channel - 347) * 0.02) + 74.215;
+					if (val != 'undefined' && val) {
+						if (type == 'channel>frequency') {
 						
+							ob = ((val - 347) * 0.02) + 84.015;
+							ub = ((val - 347) * 0.02) + 74.215;
+								
+						} else {
+								
+							ob = parseInt(((val.replace(',', '.') - 84.015) / 0.02) + 347);
+							ub = parseInt(((val.replace(',', '.') - 74.215) / 0.02) + 347);
+							
+						}
+							
 						jQuery('#fq_ob').val(ob.toString().replace('.', ','));
 						jQuery('#fq_ub').val(ub.toString().replace('.', ','));
-						
 					}
 					
 				});
@@ -29,10 +43,14 @@
 	</head>
 	<body>
 		
-		Kanal (4m): <input type='text' size='20' id='channel' /> <button id='calculate'>berechnen</button>
+		<input type='radio' name='calculationType' value='channelToFrequency' /> Channel &raquo; Frequency <input type='radio' name='calculationType' value='frequencyToChannel' /> Frequency &raquo; Channel
+		<br /><br /> 
+		
+		Channel (4m): <input type='text' size='20' id='channel' /> <button id='calculate'>calculate</button>
 		<br /><br />
-		Frequenz Oberband: <input type='text' id='fq_ob' disabled='disabled' size='30' /><br />
-		Frequenz Unterband: <input type='text' id='fq_ub' disabled='disabled' size='30' /><br />
+		<div id='o'
+		Frequency "Oberband": <input type='text' id='fq_ob' disabled='disabled' size='30' /><br />
+		Frequency "Unterband": <input type='text' id='fq_ub' disabled='disabled' size='30' /><br />
 		
 	</body>
 	
