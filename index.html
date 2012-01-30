@@ -1,1 +1,39 @@
-README
+<!DOCTYPE html>
+<html>
+	
+	<head>
+		
+		<script src='http://ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js'></script>
+		<script>
+			jQuery(document).ready(function() {
+				
+				jQuery('#calculate').click(function() {
+					
+					var channel = jQuery('#channel').val();
+					
+					if (channel != 'undefined' && channel) {
+					
+						var ob = ((channel - 347) * 0.02) + 84.015;
+						var ub = ((channel - 347) * 0.02) + 74.215;
+						
+						jQuery('#fq_ob').val(ob.toString().replace('.', ','));
+						jQuery('#fq_ub').val(ub.toString().replace('.', ','));
+						
+					}
+					
+				});
+				
+			});
+		</script>
+		
+	</head>
+	<body>
+		
+		Kanal (4m): <input type='text' size='20' id='channel' /> <button id='calculate'>berechnen</button>
+		<br /><br />
+		Frequenz Oberband: <input type='text' id='fq_ob' disabled='disabled' size='30' /><br />
+		Frequenz Unterband: <input type='text' id='fq_ub' disabled='disabled' size='30' /><br />
+		
+	</body>
+	
+</html>
